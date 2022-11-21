@@ -1,5 +1,27 @@
 # Rev-Debugging-in-Linux-Kernel
 
-user-interface-race-condition.c  -> User space code to test race condition
+Compiling and Storing Perf Data
+```
+gcc race.c -lpthread -o race
+perf record -e intel_pt/cyc,noretcomp/u ./race
+perf script --insn-trace --xed -F+srcline,+srccode > race.dec
+```
 
-kernel-race-condition.c -> Kernel code, that creates two kthreads to create a race condition 
+
+
+1) Race Condition Analysis
+
+```
+cd race
+python3 ../objdump_parser.py
+```
+
+2)  Deadlock Analysis
+```
+cd deadlock
+python3 ../objdump_deadlock.py
+
+cd ..
+cd deadunlock
+python3 ../objdump_deadlock.py
+```
