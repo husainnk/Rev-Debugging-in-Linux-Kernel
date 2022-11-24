@@ -249,7 +249,7 @@ for line in perfDecLines:
         threadName,lockVarAddr,lockACQinstrAddr = getThreadAndLockVariable(line_loadLockVar)        
         lockVarName = getGlobalVarNameFromAddr(int(lockVarAddr,16),globalVarDir)
         threadTracking[threadName].append(lockVarName +"_wait")  
-        openLocks[hex(lockACQinstrAddr)] = [ threadName, lockVarName]
+        openLocks[hex(lockACQinstrAddr)] = [ threadName, lockVarName, perfDecLines.index(line)+1]
     else:
     # 2) Lock Acquire
         instrAddr = getInstrAddrFromLine(line)
