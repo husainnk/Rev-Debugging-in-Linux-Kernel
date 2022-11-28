@@ -1,4 +1,4 @@
-
+import json
 
 import pprint
 
@@ -143,7 +143,8 @@ for line in perDecLines:
 
 print("============")
 pprint.pprint(gVarAccessTracking)
-
+with open("out.json", "w") as outfile:
+    json.dump(gVarAccessTracking, outfile)
 
 
 

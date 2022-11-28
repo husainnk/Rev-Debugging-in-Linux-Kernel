@@ -1,6 +1,6 @@
 
 
-
+import json
 
 import pprint
 
@@ -274,3 +274,8 @@ print("")
 print("=========RESULTS===============")
 pprint.pprint(threadTracking)
 pprint.pprint(openLocks)
+with open("out.json", "w") as outfile:
+    json.dump(threadTracking, outfile)
+    outfile.write("\n")
+    json.dump(openLocks, outfile)
+
