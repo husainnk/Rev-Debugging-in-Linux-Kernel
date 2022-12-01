@@ -1,2 +1,0 @@
-{"resource2": ["lock2_wait", "lock2_acquire", "lock1_wait"], "resource1": ["lock1_wait", "lock1_acquire", "lock2_wait"], "main": []}
-{"0x4011a4": ["resource1", "lock1", 284063], "0x401211": ["resource2", "lock2", 293893], "0x4011d1": ["resource1", "lock2", 296248], "0x40123e": ["resource2", "lock1", 297214]}

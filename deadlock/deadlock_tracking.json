@@ -1,0 +1,1 @@
+{"resource2": [["lock2_wait", 10894], ["lock2_acquire", 10966], ["lock1_wait", 14215]], "resource1": [["lock1_wait", 1064], ["lock1_acquire", 2688], ["lock2_wait", 13249]], "main": []}
