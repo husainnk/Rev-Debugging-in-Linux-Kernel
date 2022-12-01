@@ -143,9 +143,13 @@ for line in perDecLines:
 
 print("============")
 pprint.pprint(gVarAccessTracking)
-with open("out.json", "w") as outfile:
+with open("race_tracking.json", "w") as outfile:
     json.dump(gVarAccessTracking, outfile)
 
+with open("race_function.json", "w") as outfile:
+    json.dump({"functions": threadList}, outfile)                                                                                                  
 
+with open("race_variable.json", "w") as outfile:
+    json.dump(globalVarDir, outfile) 
 
 

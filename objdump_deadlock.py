@@ -248,8 +248,8 @@ for line in perfDecLines:
         line_loadLockVar =  perfDecLines[line_index - 2]
         threadName,lockVarAddr,lockACQinstrAddr = getThreadAndLockVariable(line_loadLockVar)        
         lockVarName = getGlobalVarNameFromAddr(int(lockVarAddr,16),globalVarDir)
-        threadTracking[threadName].append(lockVarName +"_wait")  
-        openLocks[hex(lockACQinstrAddr)] = [ threadName, lockVarName, perfDecLines.index(line)+1]
+        threadTracking[threadName].append([lockVarName +"_wait",perfDecLines.index(line)+1 ])  
+        openLocks[hex(lockACQinstrAddr)] = [ threadName, lockVarName]
     else:
     # 2) Lock Acquire
         instrAddr = getInstrAddrFromLine(line)
@@ -257,12 +257,12 @@ for line in perfDecLines:
         if openLocks.get(instrAddr) != None:
             threadName = openLocks[instrAddr][0]
             lockName = openLocks[instrAddr][1]
-            threadTracking[threadName].append(lockName+"_acquire")
+            threadTracking[threadName].append([lockName+"_acquire",perfDecLines.index(line)+1 ])
         elif  is_hex(instrAddr) and int(instrAddr,16) == g_pthread_unlock_addr:
             line_loadLockVar =  perfDecLines[line_index - 2]
             threadName,lockVarAddr,lockACQinstrAddr = getThreadAndLockVariable(line_loadLockVar)        
             lockVarName = getGlobalVarNameFromAddr(int(lockVarAddr,16),globalVarDir)
-            threadTracking[threadName].append(lockVarName +"_release")  
+            threadTracking[threadName].append([lockVarName +"_release",perfDecLines.index(line)+1 ])  
 
 
     # 3) Lock Acquire
@@ -274,8 +274,11 @@ print("")
 print("=========RESULTS===============")
 pprint.pprint(threadTracking)
 pprint.pprint(openLocks)
-with open("out.json", "w") as outfile:
+with open("deadlock_tracking.json", "w") as outfile:
     json.dump(threadTracking, outfile)
-    outfile.write("\n")
-    json.dump(openLocks, outfile)
 
+with open("deadlock_function.json", "w") as outfile:
+    json.dump({"functions": threadList}, outfile)
+
+with open("deadlock_variable.json", "w") as outfile:
+    json.dump(globalVarDir, outfile)
