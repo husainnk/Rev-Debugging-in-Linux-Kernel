@@ -136,9 +136,9 @@ for line in perDecLines:
                 if abs_addr == int(globalVarDir[var],16):
                     print("Address Match : " + str(access_type))
                     if access_type == ACCESS_READ:
-                        gVarAccessTracking[var]["last_read_func"] = (thread, perDecLines.index(line)+1)
+                        gVarAccessTracking[var]["last_read_func"] = [thread, perDecLines.index(line)+1]
                     else:
-                        gVarAccessTracking[var]["last_write_func"] = (thread, perDecLines.index(line)+1)
+                        gVarAccessTracking[var]["last_write_func"] = [thread, perDecLines.index(line)+1]
             
 
 print("============")
